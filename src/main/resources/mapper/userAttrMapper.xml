@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.UserAttrMapper">
+    <select id="checkUser" resultType="UserAttr">
+        SELECT
+        c.parent_id as parentId,
+        b.teacher_id as teacherId,
+        t.*,a.*
+        FROM useraccount t
+        LEFT JOIN studentattr a on  a.userid=t.id
+        LEFT JOIN studentteacher b on b.student_id=t.id
+        LEFT JOIN studentparent c on c.student_id=t.id
+        WHERE t.account=#{account}  AND PASSWORD=#{password}
+    </select>
+
+    <select id="selectUserAttr" resultType="UserAttr">
+        SELECT * FROM studentattr WHERE userid=#{userid}
+    </select>
+
+
+    <select id="getUserByPhone" resultType="UserAttr">
+        SELECT account ,password FROM useraccount WHERE phone=#{phone}
+    </select>
+
+    <select id="getStudentById" resultType="UserAttr">
+        SELECT a.name,a.id,b.* FROM useraccount a,studentattr b WHERE b.userid=#{id} and b.userid=a.id
+    </select>
+    <select id="selectStudentNameAndParentId" resultType="UserAttr">
+        select a.name,c.parent_id as parentId from useraccount a,studentparent c where a.id=#{studentId} and a.id=c.student_id
+    </select>
+
+    <select id="getTeacherByStudentId" resultType="UserAttr">
+        SELECT b.* FROM studentteacher a,useraccount b where a.student_id=#{studentId} and a.teacher_id=b.id;
+    </select>
+
+    <select id="getParentByStudentId" resultType="UserAttr">
+        SELECT b.* FROM studentparent a,useraccount b where a.student_id=#{studentId} and a.parent_id=b.id;
+    </select>
+
+
+    <select id="getStudentByParentId" resultType="UserAttr">
+        SELECT b.* FROM studentparent a,useraccount b where a.parent_id=#{parentId} and a.student_id=b.id;
+    </select>
+
+    <select id="getTeacherByParentId" resultType="UserAttr">
+       SELECT a.name,a.id FROM studentparent p,studentteacher t,useraccount a where p.parent_id=#{parentId} and p.student_id=t.student_id and a.id=t.teacher_id;
+    </select>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id">
+        insert into studentattr(uid,userid,creative,complex,difficult,errcount,totalcount) values (#{uid},#{id},#{creative},#{complex},#{difficult},#{errcount},#{totalcount})
+    </insert>
+    <insert id="defaultInsert" useGeneratedKeys="true" keyColumn="id">
+        INSERT into studentattr(uid,userid) VALUES (#{id},#{userid});
+    </insert>
+    <update id="update">
+        update studentattr set creative=#{creative}, complex=#{complex}, difficult=#{difficult}, errcount=#{errcount}, totalcount=#{totalcount}
+        where uid=#{uid}
+    </update>
+    <update id="updateOfTeacher">
+        update studentattr set tcreative=#{tcreative}, tcomplex=#{tcomplex}, tdifficult=#{tdifficult}
+        where userid=#{id}
+    </update>
+    <update id="updateOfParent">
+        update studentattr set pcreative=#{pcreative}, pcomplex=#{pcomplex}, pdifficult=#{pdifficult}
+        where userid=#{id}
+    </update>
+
+
+
+    <insert id="addUser" useGeneratedKeys="true" keyColumn="id">
+        insert into useraccount(id,name,account,password,phone,type,openid,headimgurl) values (#{id},#{name},#{account},#{password},#{phone},#{type},#{openId},#{headImageUrl})
+    </insert>
+
+
+    <select id="selectUserByOpenId" resultType="UserAttr">
+        SELECT
+            c.parent_id as parentId,
+            b.teacher_id as teacherId,
+            t.*,a.*
+        FROM useraccount t
+        LEFT JOIN studentattr a on  a.userid=t.id
+        LEFT JOIN studentteacher b on b.student_id=t.id
+        LEFT JOIN studentparent c on c.student_id=t.id
+        WHERE t.openid=#{openid};
+    </select>
+    <update id="updateUserType">
+        update useraccount set type=#{type} where id=#{id}
+    </update>
+
+</mapper>

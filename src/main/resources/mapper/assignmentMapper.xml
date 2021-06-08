@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.AssignmentMapper">
+
+    <select id="getUnhandleHomework" resultType="QuestionReport">
+        SELECT DISTINCT hwid as hwId FROM studentsubmit t WHERE t.studentid=#{id} and t.handle='F' order by hwid desc
+    </select>
+
+
+    <select id="select" resultType="StudentSubmit">
+        SELECT t.myAnswer,t.teacherComment,t.result,t.images as  imgs,t.audios,t.questionid,ch.name as testChapter from studentsubmit t,question q,chapter ch WHERE t.studentid=#{studentId}
+        and t.hwid=#{hwId} and t.questionid=q.uid and q.catalog=ch.uid
+    </select>
+
+    <insert id="insertStudentSubmit" useGeneratedKeys="true" keyColumn="uid">
+        INSERT INTO studentsubmit(uid,studentid,questionid,hwid,result,handle,images,audios,myanswer) VALUES (#{uid},#{studentid},#{questionId},#{hwid},#{result},#{handle},#{imgs},#{audios},#{myAnswer});
+    </insert>
+
+    <update id="update">
+        update studentsubmit set handle='T' where studentid=#{userid} and hwid=#{hwId};
+    </update>
+
+    <update id="updateStudentSubmitById">
+        UPDATE studentsubmit t SET t.result=#{result},t.teacherComment=#{teacherComment} WHERE t.questionid=#{questionid}  and t.studentid=#{studentId}  and t.hwid=#{hwId};
+    </update>
+
+    <delete id="remove">
+        delete FROM studentsubmit where studentid=#{studentid} and hwid=#{hwid};
+    </delete>
+
+</mapper>

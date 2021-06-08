@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.QuestionReportMapper">
+    <insert id="insert" useGeneratedKeys="true" keyColumn="uid">
+        INSERT INTO errorquestion VALUES (#{userid},#{currenterrid},SYSDATE(),#{hwId});
+    </insert>
+    <insert id="insertStuAss" useGeneratedKeys="true">
+        INSERT INTO assignmentstudent(studentId,assignmentId,score,report,teacherName,acc,difficult,complex,creative,testChapter,errorZsds,stime) VALUES (#{userid},#{hwId},#{score},#{report},#{name},#{acc},#{difficult},#{complex},#{creative},#{testChapter},#{errorZsds},#{stime});
+    </insert>
+    <select id="selectReport" resultType="QuestionReport">
+         SELECT a.acc,b.name as studentName,a.teacherName as name,a.stime,a.assignmentId as hwId,a.report, a.score,a.testChapter,a.errorZsds FROM assignmentstudent a,useraccount b where studentId=#{id} and a.studentId=b.id order by assignmentId desc;
+    </select>
+    <select id="selectReportByHwId" resultType="QuestionReport">
+        SELECT a.acc,b.name as studentName,a.teacherName as name,a.stime,a.assignmentId as hwId,a.report, a.score,a.testChapter,a.errorZsds FROM assignmentstudent a,useraccount b where studentId=#{userid} and a.studentId=b.id and assignmentId=#{hwId}
+    </select>
+    <select id="selectQuestion" resultType="Question">
+        SELECT a.stime,b.* FROM errorquestion a,question b WHERE a.questionId=b.uid AND a.userid=#{id} order by a.stime desc;
+    </select>
+
+
+    <select id="getErrorAnswer" resultType="StudentSubmit">
+       select myAnswer,images as imgs,audios from studentsubmit where studentid=#{studentId} and questionid=#{questionId}
+    </select>
+
+</mapper>

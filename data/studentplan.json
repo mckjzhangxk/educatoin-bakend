@@ -1,0 +1,17 @@
+{
+    "uid": null,
+    "studentId": "test123",
+    "type": null,
+    "zsdId": null,
+    "student_selected": [
+        "Szsd1",
+        "Szsd2",
+        "Szsd3"
+    ],
+    "teacher_selected": [],
+    "parent_selected": [
+        "Pzsd1",
+        "Pzsd2",
+        "Pzsd3"
+    ]
+}

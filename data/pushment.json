@@ -1,0 +1,22 @@
+[
+    {
+        "uid": "uid",
+        "studentId": "test123",
+        "questionId": "ques1",
+        "type": "A",
+        "stime": "2020-06-18",
+        "querytime": null,
+        "queryBtime": null,
+        "valid": "T"
+    },
+    {
+        "uid": "uid1",
+        "studentId": "test123",
+        "questionId": "ques2",
+        "type": "B",
+        "stime": "2020-06-18",
+        "querytime": null,
+        "queryBtime": null,
+        "valid": "T"
+    }
+]

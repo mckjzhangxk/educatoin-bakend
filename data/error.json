@@ -1,0 +1,68 @@
+[
+    {
+        "uid": "fc24b79ab0fe11eaa2214cebbd70918b",
+        "title": "27",
+        "url": "/v3/小学/一年级/上册/第一章/平行四边形精选-27.htm",
+        "catalog": "fc22ba14b0fe11eaadfd4cebbd70918b",
+        "remark": "平行四边形判定、一次函数、存在性问题、分类讨论思想",
+        "answer": "：（1） y=2x+4",
+        "difficult": 0.0,
+        "complex": 0.7,
+        "creative": 0.6
+    },
+    {
+        "uid": "fc2506c2b0fe11eab5694cebbd70918b",
+        "title": "35",
+        "url": "/v3/小学/一年级/上册/第一章/平行四边形精选-35.htm",
+        "catalog": "fc22ba14b0fe11eaadfd4cebbd70918b",
+        "remark": "三角形全等、等腰三角形性质、平行四边形的性质与判定",
+        "answer": "：（1） DE、FB （2）EF+BC=AB （3）BC-EF=AB,见下图 ",
+        "difficult": 0.0,
+        "complex": 0.7,
+        "creative": 0.8
+    },
+    {
+        "uid": "fc2490a9b0fe11ea9a7e4cebbd70918b",
+        "title": "25",
+        "url": "/v3/小学/一年级/上册/第一章/平行四边形精选-25.htm",
+        "catalog": "fc22ba14b0fe11eaadfd4cebbd70918b",
+        "remark": "垂直平分线性质、平行四边形的性质与判定、存在性问题、分类讨论思想",
+        "answer": "（1）A",
+        "difficult": 0.0,
+        "complex": 0.6,
+        "creative": 0.6
+    },
+    {
+        "uid": "fc2490a9b0fe11ea9a7e4cebbd70918b",
+        "title": "25",
+        "url": "/v3/小学/一年级/上册/第一章/平行四边形精选-25.htm",
+        "catalog": "fc22ba14b0fe11eaadfd4cebbd70918b",
+        "remark": "垂直平分线性质、平行四边形的性质与判定、存在性问题、分类讨论思想",
+        "answer": "（1）A",
+        "difficult": 0.0,
+        "complex": 0.6,
+        "creative": 0.6
+    },
+    {
+        "uid": "fc24b79ab0fe11eaa2214cebbd70918b",
+        "title": "27",
+        "url": "/v3/小学/一年级/上册/第一章/平行四边形精选-27.htm",
+        "catalog": "fc22ba14b0fe11eaadfd4cebbd70918b",
+        "remark": "平行四边形判定、一次函数、存在性问题、分类讨论思想",
+        "answer": "：（1） y=2x+4",
+        "difficult": 0.0,
+        "complex": 0.7,
+        "creative": 0.6
+    },
+    {
+        "uid": "fc2506c2b0fe11eab5694cebbd70918b",
+        "title": "35",
+        "url": "/v3/小学/一年级/上册/第一章/平行四边形精选-35.htm",
+        "catalog": "fc22ba14b0fe11eaadfd4cebbd70918b",
+        "remark": "三角形全等、等腰三角形性质、平行四边形的性质与判定",
+        "answer": "：（1） DE、FB （2）EF+BC=AB （3）BC-EF=AB,见下图 ",
+        "difficult": 0.0,
+        "complex": 0.7,
+        "creative": 0.8
+    }
+]

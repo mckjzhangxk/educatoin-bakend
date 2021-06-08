@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.ChatRoomMapper">
+
+    <select id="select" resultType="ChatRoom">
+        select * from chatRoom where fromid=#{fromid} and toid=#{toid};
+    </select>
+
+
+    <select id="selectValid" resultType="ChatRoom">
+        select * from chatRoom where  toid=#{toid} and valid='T';
+    </select>
+
+    <update id="update">
+       update chatRoom set valid=#{valid} where uid=#{uid}
+    </update>
+
+
+    <update id="insert">
+        insert chatRoom(uid,fromid,toid,valid) values  (#{uid},#{fromid},#{toid},#{valid})
+    </update>
+
+
+    <delete id="deleteRoomById">
+        delete  from chatRoom where uid=#{uid};
+    </delete>
+
+</mapper>

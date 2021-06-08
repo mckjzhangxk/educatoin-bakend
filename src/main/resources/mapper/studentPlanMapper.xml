@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.StudentPlanMapper">
+
+    <select id="select" resultType="StudentPlan">
+        SELECT * from studentplan where studentid=#{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id">
+        insert into studentplan(uid,studentid,type,zsdid) values (#{uid},#{studentId},#{type},#{zsdId})
+    </insert>
+
+
+
+    <insert id="insertZhuanti" useGeneratedKeys="true" keyColumn="id">
+        insert into studentplan(uid,studentid,type,zhuantiid) values (#{uid},#{studentId},#{type},#{zhuantiId})
+    </insert>
+
+
+    <update id="delete">
+        delete from  studentplan where studentid=#{studentId} and type=#{type}
+    </update>
+
+    <select id="getStudentAnalysis" resultType="AnalysisDto">
+        SELECT ch.catalog,q.result FROM studentsubmit q,question ch where q.studentid=#{studentId} and ch.uid=q.questionid ;
+    </select>
+
+
+    <select id="selectStudentJob" resultType="StudentPlan">
+        select * from dailyjob where valid='T' and studentid=#{studentId};
+    </select>
+
+</mapper>

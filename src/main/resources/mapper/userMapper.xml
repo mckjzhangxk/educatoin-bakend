@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.UserMapper">
+    <resultMap id="user" type="User">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="age" property="age"></result>
+        <result column="account" property="account" javaType="String"></result>
+        <result column="password" property="password"></result>
+        <result column="phone" property="phone"></result>
+        <result column="teacher" property="teacher"></result>
+        <result column="teacher_id" property="teacherId"></result>
+        <result column="parent_name" property="parentName"></result>
+        <result column="parent_id" property="parentId"></result>
+        <result column="type" property="type"></result>
+    </resultMap>
+
+    <select id="getAllUsers" resultMap="user">
+        select ua.id,ifnull(ua.age,0) as age,ua.account,ua.name,ua.password,ifnull(ua.phone,'') as phone ,
+        ua.type,ifnull(st.teacher_name,'') as teacher,st.teacher_id,ifnull(sp.parent_name,'') as parent_name,
+        sp.parent_id
+        from useraccount ua left join
+        (select st.student_id,ua.name as teacher_name,st.teacher_id FROM studentteacher st left join useraccount ua on ua.id=st.teacher_id) st on ua.id=st.student_id
+        left join
+        (select sp.student_id, sp.parent_id, ua.name as parent_name FROM studentparent sp left join useraccount ua on ua.id=sp.parent_id) sp on sp.student_id = ua.id
+        <where>
+            ua.type in
+            <foreach collection="types" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+        order by ${column}
+        <if test="order!=null">
+            ${order}
+        </if>
+    </select>
+    <select id="selectUserById" resultMap="user">
+        select id,name,ifnull(age,0),account,password,phone,type from useraccount where id=#{id}
+    </select>
+    <select id="selectUserByName" resultMap="user">
+        select ua.id,ifnull(ua.age,0) as age,ua.account,ua.name,ua.password,ifnull(ua.phone,'') as phone ,
+        ua.type,ifnull(st.teacher_name,'') as teacher,st.teacher_id,ifnull(sp.parent_name,'') as parent_name,
+        sp.parent_id
+        from useraccount ua left join
+        (select st.student_id,ua.name as teacher_name,st.teacher_id FROM studentteacher st left join useraccount ua on ua.id=st.teacher_id) st on ua.id=st.student_id
+        left join
+        (select sp.student_id, sp.parent_id, ua.name as parent_name FROM studentparent sp left join useraccount ua on ua.id=sp.parent_id) sp on sp.student_id = ua.id
+        <where>
+         ua.name like concat(concat('%',#{name},'%')) and
+         ua.type in
+         <foreach collection="types" item="item" open="(" close=")" separator=",">
+             #{item}
+         </foreach>
+         </where>
+        order by ${column}
+        <if test="order!=null">
+            ${order}
+        </if>
+    </select>
+    <select id="selectUserByPhone" resultMap="user">
+        select ua.id,ifnull(ua.age,0) as age,ua.account,ua.name,ua.password,ifnull(ua.phone,'') as phone ,
+        ua.type,ifnull(st.teacher_name,'') as teacher,st.teacher_id,ifnull(sp.parent_name,'') as parent_name,
+        sp.parent_id
+        from useraccount ua left join
+        (select st.student_id,st.teacher_id,ua.name as teacher_name FROM studentteacher st left join useraccount ua on ua.id=st.teacher_id) st on ua.id=st.student_id
+        left join
+        (select sp.student_id, sp.parent_id, ua.name as parent_name FROM studentparent sp left join useraccount ua on ua.id=sp.parent_id) sp on sp.student_id = ua.id
+        <where>
+            ua.phone like concat(concat('%',#{phone},'%')) and
+            ua.type in
+            <foreach collection="types" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+        order by ${column}
+        <if test="order!=null">
+            ${order}
+        </if>
+    </select>
+    <select id="selectUserByAccount" resultMap="user">
+        select ua.id,ifnull(ua.age,0) as age,ua.account,ua.name,ua.password,ifnull(ua.phone,'') as phone ,
+        ua.type,ifnull(st.teacher_name,'') as teacher,st.teacher_id,ifnull(sp.parent_name,'') as parent_name,
+        sp.parent_id
+        from useraccount ua left join
+        (select st.student_id,st.teacher_id,ua.name as teacher_name FROM studentteacher st left join useraccount ua on ua.id=st.teacher_id) st on ua.id=st.student_id
+        left join
+        (select sp.student_id, sp.parent_id, ua.name as parent_name FROM studentparent sp left join useraccount ua on ua.id=sp.parent_id) sp on sp.student_id = ua.id
+        <where>
+            ua.account like concat(concat('%',#{account},'%')) and
+            ua.type in
+            <foreach collection="types" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+        order by ${column}
+        <if test="order!=null">
+            ${order}
+        </if>
+    </select>
+    <select id="getAllUsersByType" resultMap="user">
+        select ua.id,ifnull(ua.age,0) as age,ua.account,ua.name,ua.password,ifnull(ua.phone,'') as phone ,
+        ua.type,ifnull(st.teacher_name,'') as teacher,st.teacher_id,ifnull(sp.parent_name,'') as parent_name,
+        sp.parent_id
+        from useraccount ua left join
+        (select st.student_id,st.teacher_id,ua.name as teacher_name FROM studentteacher st left join useraccount ua on ua.id=st.teacher_id) st on ua.id=st.student_id
+        left join
+        (select sp.student_id, sp.parent_id, ua.name as parent_name FROM studentparent sp left join useraccount ua on ua.id=sp.parent_id) sp on sp.student_id = ua.id
+            <where>
+                ua.type in
+                <foreach collection="list" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </where>
+    </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyColumn="id">
+        insert into useraccount(id,name,account,password,phone,type) values (#{id},#{name},#{account},#{password},#{phone},#{type})
+    </insert>
+
+    <insert id="setStuTeacher" useGeneratedKeys="true" keyColumn="id">
+        insert into studentteacher(id,teacher_id,student_id) values (#{id},#{teacher},#{student})
+    </insert>
+
+    <insert id="setStuParent" useGeneratedKeys="true" keyColumn="id">
+        insert into studentparent(id,parent_id,student_id) values (#{id},#{parent},#{student})
+    </insert>
+
+    <update id="updateUser">
+        update useraccount set name=#{name}, account=#{account}, phone=#{phone}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from useraccount where id=#{id}
+    </delete>
+
+    <delete id="deleteStuParent">
+        delete from studentparent where student_id=#{id}
+    </delete>
+
+    <delete id="deleteStuParentByParentID">
+        delete from studentparent where parent_id=#{id}
+    </delete>
+
+    <delete id="deleteStuTeacher">
+        delete from studentteacher where student_id=#{id}
+    </delete>
+
+    <delete id="deleteStuTeacherByTeacherID">
+        delete from studentteacher where teacher_id=#{id}
+    </delete>
+
+    <select id="checkUserByName" resultMap="user">
+        select id,name,account,type from useraccount where account=#{username}
+    </select>
+
+    <select id="getUser" resultMap="user">
+        select id,name,account,type,phone from useraccount where account=#{username} and password=#{password} and type = 2
+    </select>
+
+</mapper>

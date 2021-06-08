@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.PushmentMapper">
+
+    <select id="select" resultType="Pushment">
+         SELECT questionid,type,(SYSDATE()>#{queryBtime}) as valid  FROM pushment a WHERE a.studentid=#{studentId} AND a.stime like #{querytime}  order by stime,type;
+    </select>
+
+    <select id="selectUnhandle" resultType="Pushment">
+        SELECT questionid,type,(SYSDATE()>#{queryBtime}) as valid,stime  FROM pushment a WHERE a.studentid=#{studentId} AND a.handle='F'  order by stime,type;
+    </select>
+
+    <select id="selectAfter" resultType="Pushment">
+        SELECT questionid,type,stime,handle FROM pushment a WHERE a.studentid=#{studentId} and stime>#{querytime} order by stime,type;
+    </select>
+
+    <update id="update">
+       update pushment set valid="T" where stime=#{querytime}
+    </update>
+    <update id="insert">
+        insert into pushment(uid,studentId,stime,questionId,type,valid) values  (#{uid},#{studentId},#{stime},#{questionId},#{type},#{valid})
+    </update>
+
+    <update id="updateStudentPushment">
+        update pushment set handle="T" where stime=#{stime} and studentId=#{studentId} and type=#{type}
+    </update>
+
+
+    <delete id="remove">
+        delete from pushment where studentid=#{studentId} and stime=#{stime} and type=#{type}
+    </delete>
+</mapper>

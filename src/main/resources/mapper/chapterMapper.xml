@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.ChapterMapper">
+
+    <insert id="insertQuestion" useGeneratedKeys="true" keyColumn="uid">
+        insert into question(uid,title,url,catalog,difficult,complex,creative,remark,answer) values(
+        #{uid},#{title},#{url},#{catalog},#{difficult},#{complex},#{creative},#{remark},#{answer}
+        );
+    </insert>
+    <insert id="insertChapter" useGeneratedKeys="true" keyColumn="uid">
+      insert into chapter(uid,name,parent,isLeaf,remark) values(#{uid},#{name},#{parent},#{isLeaf},#{remark});
+    </insert>
+
+    <update id="update">
+       update question set url=#{url},difficult=#{difficult},complex=#{complex},creative=#{creative},remark=#{remark},answer=#{answer} where uid=#{uid}
+    </update>
+
+    <update id="updateQuesionName">
+        update question set title=#{name}  where uid=#{id}
+    </update>
+
+    <update id="updateChapterName">
+        update chapter set name=#{name}  where uid=#{id}
+    </update>
+
+
+    <update id="updateZhangjie">
+        update chapter set remark=#{remark} where uid=#{uid}
+    </update>
+
+
+    <delete id="removeQuestionById">
+       delete FROM question where uid=#{questionId}
+    </delete>
+
+    <delete id="removeChapterById">
+        delete FROM chapter where uid=#{chapterId}
+    </delete>
+
+
+    <delete id="removeQuestionByCatalog">
+        delete  FROM question where catalog=#{catalogId}
+    </delete>
+
+
+</mapper>

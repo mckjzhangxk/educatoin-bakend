@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.TeacherMapper">
+
+
+    <select id="select" resultType="tech.mathai.app.Entity.Assignment">
+       SELECT uid,name,teacherid,questionid as currentid,type as qtype,stime FROM Assignment WHERE teacherid=#{teacherid}  and uid not IN (SELECT assignmentId FROM AssignmentStudent
+ WHERE studentId=#{id}) order by stime desc
+    </select>
+
+    <select id="getStudents" resultType="tech.mathai.app.Entity.UserAttr">
+        select
+		student.id,student.phone,student.name,
+        parent.name as parentName,parent.id as parentId,
+        tm.message as studentMessage,
+        pm.message as parentMessage,
+        cm.uid as room
+        from studentteacher t
+		left join studentparent p
+			on  t.student_id=p.student_id
+		join useraccount student
+			on t.student_id=student.id
+		left join useraccount parent
+			on p.parent_id=parent.id
+        left join chatmessage tm
+			on (tm.fromid=t.student_id and tm.toid=t.teacher_id)
+		left join chatmessage pm
+			on (pm.fromid=p.parent_id and pm.toid=t.teacher_id)
+		left join  chatRoom cm
+		    on (cm.fromid=t.teacher_id  and cm.toid=t.student_id)
+        where t.teacher_id=#{id} order by student.name;
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id">
+        insert into Assignment values (#{uid},#{name},#{teacherid},#{qtype},#{currentid},SYSDATE())
+    </insert>
+
+
+
+
+</mapper>

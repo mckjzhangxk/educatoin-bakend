@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.mathai.app.Mapper.PaymenberShipMapper">
+
+    <select id="getPayMemberShip" resultType="PayMemberShip">
+         select * from membership where userid=#{userid} order by expiretime desc;
+    </select>
+
+
+    <update id="insertPayMemberShip">
+      insert into membership(uid,ordertime,price,userid,mouths,expiretime) values(#{uuid},#{orderTime},#{price},#{userid},#{mouths},#{expireTime});
+    </update>
+
+
+
+
+</mapper>
